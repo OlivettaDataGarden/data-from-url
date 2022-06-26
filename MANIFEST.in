@@ -1,0 +1,21 @@
+graft docs
+graft src
+graft ci
+graft tests
+
+include .isort.cfg
+include .bumpversion.cfg
+include .cookiecutterrc
+include .coveragerc
+include .editorconfig
+include tox.ini
+include .readthedocs.yml
+include .pre-commit-config.yaml
+include AUTHORS.rst
+include CHANGELOG.rst
+include CONTRIBUTING.rst
+include LICENSE
+include README.rst
+recursive-include get_data *.py
+
+global-exclude *.py[cod] __pycache__/* *.so *. .DS_Store

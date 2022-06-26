@@ -1,0 +1,6 @@
+error-manager
+requests
+pydantic
+validators
+unidecode
+xmltodict
