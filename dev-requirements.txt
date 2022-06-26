@@ -8,3 +8,5 @@ tox
 twine
 setuptools
 wheel
+isort
+flake8
