@@ -30,23 +30,23 @@ class QueryParams(BaseModel):
     retries: int = 3
 
     @validator('method')
-    def method_must_be_valid(cls, v):
+    def method_must_be_valid(cls, value):
         """ check method argument has a valid value """
-        if v not in RestMethod.values():
+        if value not in RestMethod.values():
             raise ValueError(GetDataExceptions.INVALID_METHOD.value)
-        return v
+        return value
 
     @validator('expected_status_code', pre=True)
-    def status_code_to_list(cls, v):
+    def status_code_to_list(cls, value):
         """ status code should be list[int]
         this method makes a list from it when int is provided
         """
-        if isinstance(v, int):
-            return [v]
-        return v
+        if isinstance(value, int):
+            return [value]
+        return value
 
     @validator('expected_status_code', each_item=True)
-    def check_expected_status_code(cls, v):
+    def check_expected_status_code(cls, value):
         """method to check if expected status codes are allowed"""
-        assert v in ALLOWED_EXPECTED_STATUS_CODES
-        return v
+        assert value in ALLOWED_EXPECTED_STATUS_CODES
+        return value
