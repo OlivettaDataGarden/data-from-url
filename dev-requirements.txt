@@ -4,3 +4,7 @@ pydantic
 validators
 unidecode
 xmltodict
+tox
+twine
+setuptools
+wheel
