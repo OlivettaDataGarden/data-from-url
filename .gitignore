@@ -1,6 +1,9 @@
 *.py[cod]
 __pycache__
 
+# venv
+.venv_dfu/*
+
 # C extensions
 *.so
 
