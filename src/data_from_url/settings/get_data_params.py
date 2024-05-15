@@ -1,7 +1,7 @@
 """
 
 """
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from validators import url as url_is_valid
 
 from ..convertors.abstract_convertor import AllConvertors
@@ -22,24 +22,24 @@ class GetDataParams(BaseModel):
     params: dict = Field(default_factory=dict)
     params: dict = Field(default_factory=dict)
     proxy: str = None
-    expected_status_code: list = Field(default_factory=list([200]))
+    expected_status_code: list = Field(default_factory=lambda: [200])
     method: str = 'GET'
 
-    @validator('method')
+    @field_validator('method')
     def method_must_be_valid(cls, method) -> str:
         """ check method argument has a valid value """
         if method not in RestMethod.values():
             raise ValueError(GetDataExceptions.INVALID_METHOD.value)
         return method
 
-    @validator('convertor')
+    @field_validator('convertor')
     def convertor_must_be_known(cls, convertor: str) -> str:
         """ check method argument has a valid value """
         if convertor not in AllConvertors.names:
             raise ValueError(GetDataExceptions.UNKNOWN_CONVERTOR.value)
         return convertor
 
-    @validator('url')
+    @field_validator('url')
     def url_must_be_valid(cls, url: str) -> str:
         """ check if url is valid """
         if url_is_valid(url):
