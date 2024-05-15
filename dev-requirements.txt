@@ -1,12 +1,16 @@
+tox
+build
+pre-commit
+pytest
+isort
+mypy
+types-PyYAML
+ruff
+
+#package requirements
 error-manager
 requests
 pydantic
 validators
 unidecode
 xmltodict
-tox
-twine
-setuptools
-wheel
-isort
-flake8
