@@ -9,13 +9,14 @@ methods:
     - make_request_with_method
 """
 import time
+from typing import Optional
 
 import requests
 import unidecode
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ChunkedEncodingError, ConnectionError, \
     ReadTimeout, RetryError
-from requests.packages.urllib3.util.retry import Retry
+from requests.packages.urllib3.util.retry import Retry # type: ignore
 
 
 def remove_none_values(input_dict: dict) -> dict:
@@ -23,7 +24,7 @@ def remove_none_values(input_dict: dict) -> dict:
     return {k: v for k, v in input_dict.items() if v is not None}
 
 
-def convert_params_to_url_ext(params: dict) -> str:
+def convert_params_to_url_ext(params: Optional[dict]) -> str:
     """
     Converts a set of params in a dict to a string that can be added to the
     request url.

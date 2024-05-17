@@ -21,7 +21,7 @@ def in_bytes(input_string: Union[bytes, str]) -> bytes:
     return input_string
 
 
-def replace_strings(input_string: bytes, convertor_params: dict) -> str:
+def replace_strings(input_string: bytes, convertor_params: dict) -> bytes:
     """
     Replace part of the json string based upon provided argument
     self.replace

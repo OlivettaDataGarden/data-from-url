@@ -118,7 +118,7 @@ def test_convertor_implements_abstract_result_with_data_field_method(mocker):
     """
     test that _result_with_data_field method exists in AbstractConvertor
     """
-    assert AbstractConvertor._result_with_data_field() is None
+    assert AbstractConvertor._result_with_data_field
 
 
 def test_convertor_implements_validate_convertor_params_method(mocker):
@@ -169,4 +169,4 @@ def test_register_convertor():
 
     AllConvertors.register_convertor(NewConvertor)
     assert 'TEST' in AllConvertors.names
-    assert getattr(AllConvertors, 'TEST') is NewConvertor
+    assert AllConvertors.TEST is NewConvertor

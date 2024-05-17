@@ -2,6 +2,7 @@
 Module to define JSONConvertor class for the get_data module
 """
 import json
+from typing import Optional, Union
 import urllib
 
 from errors.base import add_error_data
@@ -48,6 +49,7 @@ class JSONFromHTMLConvertor(AbstractConvertor):
 
         return cls._format_json(result, convertor_params, json_byte_in_html)
 
+    
     @staticmethod
     def _invalid_json_result(
             result: GetDataResponse, json_snippet: str) -> GetDataResponse:
@@ -121,7 +123,7 @@ class JSONFromHTMLConvertor(AbstractConvertor):
 
     @classmethod
     def _find_json_byte_in_html(
-            cls, html_in_byte_resp: bytes, convertor_params: dict) -> bytes:
+            cls, html_in_byte_resp: bytes, convertor_params: dict) -> Optional[bytes]:
         """Finds the json bytes string in the html
 
         Args:
@@ -134,10 +136,12 @@ class JSONFromHTMLConvertor(AbstractConvertor):
         """
         json_begin = convertor_params.get('json_begin')
         json_end = convertor_params.get('json_end')
+        if not json_begin or not json_end:
+            raise ValueError("No json_begin and/or json_end not defined")
         begin = find_str_sequence_in_str(json_begin, html_in_byte_resp)
         end = find_str_sequence_in_str(json_end, html_in_byte_resp, begin)
         if begin == -1 or end == -1:
-            return False
+            return None
 
         if convertor_params.get('json_within_quotes', None):
             byte_string_containing_json = \

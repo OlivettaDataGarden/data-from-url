@@ -1,6 +1,7 @@
 """
 
 """
+from typing import Optional
 from pydantic import BaseModel, Field, field_validator
 from validators import url as url_is_valid
 
@@ -20,8 +21,7 @@ class GetDataParams(BaseModel):
     convertor_params: dict = Field(default_factory=dict)
     headers: dict = Field(default_factory=dict)
     params: dict = Field(default_factory=dict)
-    params: dict = Field(default_factory=dict)
-    proxy: str = None
+    proxy: Optional[str] = None
     expected_status_code: list = Field(default_factory=lambda: [200])
     method: str = 'GET'
 
@@ -53,6 +53,6 @@ class GetDataParams(BaseModel):
             params = GetDataParams(**all_api_arguments)
             get_data_response = DataFromAPIorURL().data(**params.format_params)
         """
-        query_params = self.dict()
+        query_params = self.model_dump()
         convertor = query_params.pop('convertor')
         return {'query_params': query_params, 'convertor': convertor}

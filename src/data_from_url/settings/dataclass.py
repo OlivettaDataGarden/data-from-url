@@ -3,7 +3,7 @@ Module to define dataclasses for get_data module
 """
 
 from collections import namedtuple
-from typing import List, Union
+from typing import List, Optional, Union
 
 from pydantic import BaseModel, field_validator
 
@@ -24,10 +24,10 @@ class QueryParams(BaseModel):
     expected_status_code: List[int]
     # data (body) object can also be string in order to allow for complex
     # GraphQL queries to be provided as string
-    data: Union[dict, str] = None
-    params: dict = None
-    proxy: str = None
-    status_forcelist: set = (500, 502, 504)
+    data: Optional[Union[dict, str]] = None
+    params: Optional[dict] = None
+    proxy: Optional[str] = None
+    status_forcelist: set = {500, 502, 504}
     backoff_factor: float = 0.3
     retries: int = 3
 
@@ -51,10 +51,11 @@ class QueryParams(BaseModel):
     def check_expected_status_code(cls, status_codes: list[int]):
         """method to check if expected status codes are allowed"""
         incorrect_status_codes = [
-            status_code for status_code in status_codes if
-            status_code not in ALLOWED_EXPECTED_STATUS_CODES 
-        ] 
+            status_code
+            for status_code in status_codes
+            if status_code not in ALLOWED_EXPECTED_STATUS_CODES
+        ]
         if incorrect_status_codes:
-            raise ValueError(f'Status codes {incorrect_status_codes} not allowed.')
+            raise ValueError(f"Status codes {incorrect_status_codes} not allowed.")
 
         return status_codes
