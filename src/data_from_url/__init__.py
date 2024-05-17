@@ -122,3 +122,12 @@ from .convertors.json_convertor import JSONConvertor
 from .convertors.json_from_html_convertor import JSONFromHTMLConvertor
 from .convertors.text_convertor import TextConvertor
 from .convertors.xml_convertor import XMLConvertor
+
+
+__all__ = [
+    "CSVConvertor",
+    "JSONConvertor",
+    "JSONFromHTMLConvertor",
+    "TextConvertor",
+    "XMLConvertor",
+]

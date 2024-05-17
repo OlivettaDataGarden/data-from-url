@@ -34,6 +34,7 @@ class AbstractConvertor(metaclass=ABCMeta):
     by default this validation requires the convertor_params to be None. When
     convertor_params are required override this method with specific validation
     """
+    convertor_name: str
 
     @classmethod
     def get_data(cls, query_params: dict) -> GetDataResponse:
@@ -45,9 +46,10 @@ class AbstractConvertor(metaclass=ABCMeta):
             return result
         return cls._result_with_data_field(result, convertor_params)
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def _result_with_data_field() -> GetDataResponse:
+    def _result_with_data_field(
+        cls, result: GetDataResponse, convertor_params: dict) -> GetDataResponse:
         """ private method to do the actual data coversion """
 
     @staticmethod
@@ -74,10 +76,10 @@ class AbstractConvertor(metaclass=ABCMeta):
 
 class AllConvertors():
 
-    names = []
+    names: list[str] = []
 
     @classmethod
-    def register_convertor(cls, convertor: AbstractConvertor) -> None:
+    def register_convertor(cls, convertor: type[AbstractConvertor]) -> None:
         """
         Method to register
         """

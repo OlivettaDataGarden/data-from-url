@@ -17,7 +17,9 @@ class JSONConvertor(AbstractConvertor):
     convertor_name = 'JSON'
 
     @classmethod
-    def _result_with_data_field(cls, result, _=None):
+    def _result_with_data_field(
+        cls, result: GetDataResponse, _=None
+    ) -> GetDataResponse:
         """
         Extracts the JSON from the response and adds it to the results data
         field. If no proper JSON can be retrieved from response object in

@@ -3,7 +3,7 @@ Module to define the main classes for the get data module
 """
 from .logical_api import LogicalApi
 from .proxy import GetProxiedQueryParams
-from .settings.dataclass import QueryParams
+from .settings.dataclass import GetDataResponse, QueryParams
 
 
 class GetData():
@@ -18,7 +18,7 @@ class GetData():
     """
 
     @classmethod
-    def result(cls, query_params: dict) -> tuple:
+    def result(cls, query_params: dict) -> GetDataResponse:
         """Method to retrieve
 
         Args:
@@ -35,9 +35,9 @@ class GetData():
         return LogicalApi.result(query_params)
 
     @staticmethod
-    def validate_query_params(query_params: dict) -> None:
+    def validate_query_params(query_params: dict) -> dict:
         """
         validates if query params contains all required fields and only allowed
         values
         """
-        return QueryParams(**query_params).dict()
+        return QueryParams(**query_params).model_dump()

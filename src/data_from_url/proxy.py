@@ -35,7 +35,7 @@ class ScraperAPI():
     @staticmethod
     def _params(query_params: dict) -> dict:
         """Method to generate the params argument for ScraperAPI requests"""
-        url = query_params.get('url')
+        url = query_params['url']
         url += convert_params_to_url_ext(params=query_params.get('params'))
         params = {'api_key': SCRAPER_API_KEY}
         params.update({'keep_headers': 'true'})
