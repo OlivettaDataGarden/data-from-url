@@ -1,6 +1,12 @@
 *.py[cod]
 __pycache__
 
+
+# Geodatagarden Standards
+todo.txt
+architecture.txt
+
+
 # venv
 .venv_dfu/*
 
