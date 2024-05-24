@@ -122,7 +122,8 @@ from .convertors.json_convertor import JSONConvertor
 from .convertors.json_from_html_convertor import JSONFromHTMLConvertor
 from .convertors.text_convertor import TextConvertor
 from .convertors.xml_convertor import XMLConvertor
-
+from .settings.dataclass import GetDataResponse, QueryParams
+from .retrieve import DataFromAPIorURL
 
 __all__ = [
     "CSVConvertor",
@@ -130,4 +131,7 @@ __all__ = [
     "JSONFromHTMLConvertor",
     "TextConvertor",
     "XMLConvertor",
+    "GetDataResponse",
+    "DataFromAPIorURL",
+    "QueryParams",
 ]
