@@ -36,8 +36,8 @@ def test_result_method_calls_check_status_code_when_valid_result(mocker):
 
 def test_does_not_call_check_status_code_when_invalid_result(mocker):
     """
-    test that LogicalApi result class method calls _check_status_code method
-    when result status is_valid
+    test that LogicalApi result class method does not calls _check_status_code
+    method when result status is_valid
     """
     mocker.patch('data_from_url.logical_api.LogicalApi._do_request',
                  return_value=INVALID_GET_DATA_RESPONSE)
