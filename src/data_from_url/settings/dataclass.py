@@ -2,17 +2,20 @@
 Module to define dataclasses for get_data module
 """
 
-from collections import namedtuple
-from typing import List, Optional, Union
+from typing import Any, List, Optional, Union
 
 from pydantic import BaseModel, field_validator
 
 from .enumerator import GetDataExceptions, RestMethod
 from .settings import ALLOWED_EXPECTED_STATUS_CODES, DEFAULT_HEADER
 
-GetDataResponse = namedtuple(
-    "GetDataResponse", "response is_valid error_msg data io_time"
-)
+
+class GetDataResponse(BaseModel):
+    response: Any
+    is_valid: Optional[bool]
+    error_msg: Any
+    data: Any
+    io_time: float = 0
 
 
 class QueryParams(BaseModel):

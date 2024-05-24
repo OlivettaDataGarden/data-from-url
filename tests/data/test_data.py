@@ -1,6 +1,7 @@
 """
 Module to define tests data for tests of get_data module
 """
+
 import json
 
 import chardet
@@ -11,10 +12,11 @@ from data.test_xml_data import INVALID_XML, VALID_XML
 from imports import GetDataResponse
 
 
-class ResponseMock():
+class ResponseMock:
     """
     class to mimmick behavior of the requests.response class
     """
+
     def __init__(self, content=b'{"a": 1}', status_code=200):
         self._content = content
         self._status_code = status_code
@@ -28,45 +30,63 @@ class ResponseMock():
 
     @property
     def text(self):
-        """ returns str value of content"""
-        encoding = chardet.detect(self._content)['encoding']
+        """returns str value of content"""
+        encoding = chardet.detect(self._content)["encoding"]
         return str(self._content, encoding)
 
     @property
     def content(self):
-        """ returns raw content"""
+        """returns raw content"""
         return self._content
 
 
 ##################################################################
 #                  test GetDataResponses                         #
 ##################################################################
-DEFAULT_GET_DATA_RESPONSE = \
-    GetDataResponse(ResponseMock(), True, [], None, 0)
+DEFAULT_GET_DATA_RESPONSE = GetDataResponse(
+    response=ResponseMock(), is_valid=True, error_msg=[], data=None, io_time=0
+)
 
-INVALID_GET_DATA_RESPONSE = \
-    GetDataResponse(ResponseMock(), False, ['errorcode'], None, 0)
+INVALID_GET_DATA_RESPONSE = GetDataResponse(
+    response=ResponseMock(),
+    is_valid=False,
+    error_msg=["errorcode"],
+    data=None,
+    io_time=0,
+)
 
-INVALID_JSON_GET_DATA_RESPONSE = \
-    GetDataResponse(
-        ResponseMock(content=b'{"invalid json"}'), True, [], None, 0)
+INVALID_JSON_GET_DATA_RESPONSE = GetDataResponse(
+    response=ResponseMock(content=b'{"invalid json"}'),
+    is_valid=True,
+    error_msg=[],
+    data=None,
+    io_time=0,
+)
 
-INVALID_XML_GET_DATA_RESPONSE = \
-    GetDataResponse(ResponseMock(content=INVALID_XML), True, [], None, 0)
+INVALID_XML_GET_DATA_RESPONSE = GetDataResponse(
+    response=ResponseMock(content=INVALID_XML),
+    is_valid=True,
+    error_msg=[],
+    data=None,
+    io_time=0,
+)
 
-VALID_XML_GET_DATA_RESPONSE = \
-    GetDataResponse(ResponseMock(content=VALID_XML), True, [], None, 0)
+
+VALID_XML_GET_DATA_RESPONSE = GetDataResponse(
+    response=ResponseMock(content=VALID_XML),
+    is_valid=True,
+    error_msg=[],
+    data=None,
+    io_time=0,
+)
 
 
 ##################################################################
 #                  test Query Params                             #
 ##################################################################
-DEFAULT_QUERY_PARAMS = {
-    'url': 'https://www.google.com',
-    'expected_status_code': [200]
-}
+DEFAULT_QUERY_PARAMS = {"url": "https://www.google.com", "expected_status_code": [200]}
 
-QUERY_PARAMS_WITH_PROXY = DEFAULT_QUERY_PARAMS | {'proxy': 'SCRAPERAPI'}
+QUERY_PARAMS_WITH_PROXY = DEFAULT_QUERY_PARAMS | {"proxy": "SCRAPERAPI"}
 
 
 ##################################################################
@@ -74,33 +94,43 @@ QUERY_PARAMS_WITH_PROXY = DEFAULT_QUERY_PARAMS | {'proxy': 'SCRAPERAPI'}
 #                  for use in test_json_from_html                #
 ##################################################################
 CONVERTOR_PARAMS_JSON_FROM_HTTP = {
-    'json_begin': 'window.__PRELOADED_STATE_LISTING__=',
-    'json_end': '</script>',
-    'json_within_quotes': False
+    "json_begin": "window.__PRELOADED_STATE_LISTING__=",
+    "json_end": "</script>",
+    "json_within_quotes": False,
 }
 
-CONVERTOR_PARAMS_ESCAPED_QUOTES = \
-    CONVERTOR_PARAMS_JSON_FROM_HTTP | {'escaped_quotes': True}
+CONVERTOR_PARAMS_ESCAPED_QUOTES = CONVERTOR_PARAMS_JSON_FROM_HTTP | {
+    "escaped_quotes": True
+}
 
 JSON_FROM_HTML_IN_BYTES = json_byte_example
 
 HTML_RESPONSE = ResponseMock(content=HTML_DATA)
-NON_HTML_RESPONSE = ResponseMock(content=b'1234')
+NON_HTML_RESPONSE = ResponseMock(content=b"1234")
 
-VALID_HTML_GET_DATA_RESPONSE = \
-    GetDataResponse(HTML_RESPONSE, True, [], None, 0)
+VALID_HTML_GET_DATA_RESPONSE = GetDataResponse(
+    response=HTML_RESPONSE, is_valid=True, error_msg=[], data=None, io_time=0
+)
 
 
 ##################################################################
 #                  test csv settings                             #
 #                  for use in CSVConvertor                       #
 ##################################################################
-CONVERTOR_PARAMS_CSV = {
-    'delimiter': ';'
-}
+CONVERTOR_PARAMS_CSV = {"delimiter": ";"}
 
-CSV_GET_DATA_RESPONSE = \
-    GetDataResponse(ResponseMock(content=VALID_CSV), True, [], None, 0)
+CSV_GET_DATA_RESPONSE = GetDataResponse(
+    response=ResponseMock(content=VALID_CSV),
+    is_valid=True,
+    error_msg=[],
+    data=None,
+    io_time=0,
+)
 
-INVALID_CSV_GET_DATA_RESPONSE = \
-    GetDataResponse(ResponseMock(content=INVALID_CSV), True, [], None, 0)
+INVALID_CSV_GET_DATA_RESPONSE = GetDataResponse(
+    response=ResponseMock(content=INVALID_CSV),
+    is_valid=True,
+    error_msg=[],
+    data=None,
+    io_time=0,
+)
