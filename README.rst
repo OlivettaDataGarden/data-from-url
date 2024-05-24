@@ -10,11 +10,10 @@ Overview
     * - docs
       - |docs|
     * - tests
-      - | |github-actions| |requires|
-        | |codecov|
+      - | |github-actions| |codecov|
     * - package
-      - | |version| |wheel| |supported-versions| |supported-implementations|
-        | |commits-since|
+      - | |version| |supported-versions| |commits-since|
+
 .. |docs| image:: https://readthedocs.org/projects/data-from-url/badge/?style=flat
     :target: https://data-from-url.readthedocs.io/
     :alt: Documentation Status
@@ -22,10 +21,6 @@ Overview
 .. |github-actions| image:: https://github.com/MaartendeRuyter/data-from-url/actions/workflows/github-actions.yml/badge.svg
     :alt: GitHub Actions Build Status
     :target: https://github.com/MaartendeRuyter/data-from-url/actions
-
-.. |requires| image:: https://requires.io/github/MaartendeRuyter/data-from-url/requirements.svg?branch=main
-    :alt: Requirements Status
-    :target: https://requires.io/github/MaartendeRuyter/data-from-url/requirements/?branch=main
 
 .. |codecov| image:: https://codecov.io/gh/MaartendeRuyter/data-from-url/branch/main/graphs/badge.svg?branch=main
     :alt: Coverage Status
@@ -35,23 +30,13 @@ Overview
     :alt: PyPI Package latest release
     :target: https://pypi.org/project/data-from-url
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/data-from-url.svg
-    :alt: PyPI Wheel
-    :target: https://pypi.org/project/data-from-url
-
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/data-from-url.svg
     :alt: Supported versions
-    :target: https://pypi.org/project/data-from-url
-
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/data-from-url.svg
-    :alt: Supported implementations
     :target: https://pypi.org/project/data-from-url
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/MaartendeRuyter/data-from-url/v0.0.1.svg
     :alt: Commits since latest release
     :target: https://github.com/MaartendeRuyter/data-from-url/compare/v0.0.1...main
-
-
 
 .. end-badges
 
