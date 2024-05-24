@@ -4,6 +4,7 @@ Module to define enumerators for get_data module
 enumerators:
     - BaseEnumerator
 """
+
 from enum import Enum
 from typing import List
 
@@ -32,8 +33,9 @@ class RestMethod(BaseEnumerator):
     """
     Class to define enumerator for get_data allowed rest methods
     """
-    GET = 'GET'
-    POST = 'POST'
+
+    GET = "GET"
+    POST = "POST"
 
 
 class GetDataExceptions(BaseEnumerator):
@@ -41,26 +43,24 @@ class GetDataExceptions(BaseEnumerator):
     Class to define enumerator for get_data exceptions.
     These exceptions should halt the processing of the flow
     """
-    INVALID_RESPONSE_FORMAT = \
-        'response_format argument contains unkwown response format type'
 
-    INVALID_RESPONSE_CONVERTOR_PARAMS = \
-        'convertor_params contains invalid arguments'
+    INVALID_RESPONSE_FORMAT = (
+        "response_format argument contains unkwown response format type"
+    )
 
-    NO_RESPONSE_CONVERTOR_PARAMS = \
-        'convertor_params required but not provided'
+    INVALID_RESPONSE_CONVERTOR_PARAMS = "convertor_params contains invalid arguments"
 
-    INVALID_METHOD = \
-        'Method should be one of ' + \
-        f'{str(RestMethod.keys())}'
+    NO_RESPONSE_CONVERTOR_PARAMS = "convertor_params required but not provided"
 
-    INVALID_PROXY = 'provided proxy service not defined'
+    INVALID_METHOD = "Method should be one of " + f"{str(RestMethod.keys())}"
+
+    INVALID_PROXY = "provided proxy service not defined"
 
     INVALID_DATA_CONVERTOR = InvalidConvertorRequested
 
-    UNKNOWN_CONVERTOR = 'Provided convertor is not registered.'
+    UNKNOWN_CONVERTOR = "Provided convertor is not registered."
 
-    INVALID_URL = 'Invalid url provided.'
+    INVALID_URL = "Invalid url provided."
 
 
 def status_code_errors(status_code: int) -> ErrorCode:
@@ -70,5 +70,5 @@ def status_code_errors(status_code: int) -> ErrorCode:
         201: ListErrors.INVALID_STATUS_CODE_201,
         403: ListErrors.INVALID_STATUS_CODE_403,
         404: ListErrors.INVALID_STATUS_CODE_404,
-        500: ListErrors.INVALID_STATUS_CODE_500
+        500: ListErrors.INVALID_STATUS_CODE_500,
     }.get(status_code, None) or ListErrors.INVALID_STATUS_CODE

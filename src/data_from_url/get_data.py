@@ -1,12 +1,13 @@
 """
 Module to define the main classes for the get data module
 """
+
 from .logical_api import LogicalApi
 from .proxy import GetProxiedQueryParams
 from .settings.dataclass import GetDataResponse, QueryParams
 
 
-class GetData():
+class GetData:
     """[summary]
 
     returns:
@@ -29,8 +30,7 @@ class GetData():
         """
         query_params = cls.validate_query_params(query_params=query_params)
         # replace query parmams by query_params that will use a proxy
-        query_params = \
-            GetProxiedQueryParams.get_query_params(query_params)
+        query_params = GetProxiedQueryParams.get_query_params(query_params)
 
         return LogicalApi.result(query_params)
 

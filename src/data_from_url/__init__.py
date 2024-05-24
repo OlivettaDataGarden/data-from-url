@@ -117,13 +117,14 @@ The Get Data module by default provides the following set of convertors
             will be replaced by its value
 
 """
+
 from .convertors.csv_convertor import CSVConvertor
 from .convertors.json_convertor import JSONConvertor
 from .convertors.json_from_html_convertor import JSONFromHTMLConvertor
 from .convertors.text_convertor import TextConvertor
 from .convertors.xml_convertor import XMLConvertor
-from .settings.dataclass import GetDataResponse, QueryParams
 from .retrieve import DataFromAPIorURL
+from .settings.dataclass import GetDataResponse, QueryParams
 
 __all__ = [
     "CSVConvertor",

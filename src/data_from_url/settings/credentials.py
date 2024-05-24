@@ -1,1 +1,1 @@
-SCRAPER_API_KEY = 'fill_in'
+SCRAPER_API_KEY = "fill_in"

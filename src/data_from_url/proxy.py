@@ -9,13 +9,14 @@ Public class:
     - GetProxiedQueryParams
 
 """
+
 from .helper import convert_params_to_url_ext
 from .settings.credentials import SCRAPER_API_KEY
 from .settings.enumerator import GetDataExceptions
 from .settings.settings import SCRAPER_API_NAME, SCRAPER_API_URL
 
 
-class ScraperAPI():
+class ScraperAPI:
     """
     Class to transform input query params to query params that will do execute
     the required request via the extrenal ScraperAPI proxy
@@ -26,24 +27,24 @@ class ScraperAPI():
 
     @classmethod
     def query_params(cls, query_params: dict) -> dict:
-        """ creates query params specific to ScraperAPI requirements """
+        """creates query params specific to ScraperAPI requirements"""
         return query_params | {
-            'url': SCRAPER_API_URL,
-            'params': cls._params(query_params),
+            "url": SCRAPER_API_URL,
+            "params": cls._params(query_params),
         }
 
     @staticmethod
     def _params(query_params: dict) -> dict:
         """Method to generate the params argument for ScraperAPI requests"""
-        url = query_params['url']
-        url += convert_params_to_url_ext(params=query_params.get('params'))
-        params = {'api_key': SCRAPER_API_KEY}
-        params.update({'keep_headers': 'true'})
-        params.update({'url': url})
+        url = query_params["url"]
+        url += convert_params_to_url_ext(params=query_params.get("params"))
+        params = {"api_key": SCRAPER_API_KEY}
+        params.update({"keep_headers": "true"})
+        params.update({"url": url})
         return params
 
 
-class GetProxiedQueryParams():
+class GetProxiedQueryParams:
     """
     Class to select the requested Scraper class in order to retrieve the
     query_params needed for that scraper class.
@@ -54,7 +55,7 @@ class GetProxiedQueryParams():
 
     @classmethod
     def get_query_params(cls, query_params: dict) -> dict:
-        """ method to tranform input query params to query params for proxy
+        """method to tranform input query params to query params for proxy
 
         arguments:
             - query_params (dict): query_params for api/url to retrieve
@@ -65,7 +66,7 @@ class GetProxiedQueryParams():
         raises:
             - ValueError when proxy name in query_params is unknown
         """
-        proxy_name = query_params.pop('proxy', None)
+        proxy_name = query_params.pop("proxy", None)
 
         if not proxy_name:
             return query_params

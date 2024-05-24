@@ -3,6 +3,7 @@
 classes:
 - DataFromAPIorURL
 """
+
 from typing import Union
 
 from .convertors.abstract_convertor import AbstractConvertor, AllConvertors
@@ -10,8 +11,8 @@ from .settings import exceptions
 from .settings.dataclass import GetDataResponse
 
 
-class DataFromAPIorURL():
-    """ Class to convert the response from url request into a data dict
+class DataFromAPIorURL:
+    """Class to convert the response from url request into a data dict
 
     public class methods:
         - data:
@@ -69,13 +70,14 @@ class DataFromAPIorURL():
     """
 
     def __new__(cls):
-        """ define this class a singleton class """
+        """define this class a singleton class"""
         return cls
 
     @classmethod
-    def data(cls, query_params: dict,
-             convertor: Union[str, AbstractConvertor]) -> GetDataResponse:
-        """ dispatch the data request to the required data convertor class """
+    def data(
+        cls, query_params: dict, convertor: Union[str, AbstractConvertor]
+    ) -> GetDataResponse:
+        """dispatch the data request to the required data convertor class"""
         convertor_class = None
 
         if isinstance(convertor, AbstractConvertor):

@@ -1,13 +1,19 @@
 """
 test methods for get_data json_from_html_helper module
 """
+
 import json
 
 import pytest
 from data.test_data import HTML_RESPONSE, NON_HTML_RESPONSE
-from imports import find_str_sequence_in_str, \
-    get_error_content_from_json_exception, get_html_from_response, \
-    get_string_between_quotes, in_bytes, replace_strings
+from imports import (
+    find_str_sequence_in_str,
+    get_error_content_from_json_exception,
+    get_html_from_response,
+    get_string_between_quotes,
+    in_bytes,
+    replace_strings,
+)
 
 
 def test_replace_strings_method_with_no_replace_dict():
@@ -26,7 +32,7 @@ def test_replace_strings_method_with_replace_dict_succes():
     indicated string
     """
     input_string = b"{'a':1}"
-    convertor_params = {'replace': {'a': 'b'}}
+    convertor_params = {"replace": {"a": "b"}}
     assert replace_strings(input_string, convertor_params) == b"{'b':1}"
 
 
@@ -36,7 +42,7 @@ def test_replace_strings_method_with_replace_dict_items_not_found():
     found in the input string leave the input string unharmed
     """
     input_string = b"{'a':1}"
-    convertor_params = {'replace': {'c': 'b'}}
+    convertor_params = {"replace": {"c": "b"}}
     assert replace_strings(input_string, convertor_params) == input_string
 
 
@@ -57,8 +63,7 @@ def test_find_str_in_seq_with_start_position_success():
     search_str = "2"
     byte_string = b"01234567890123456789"
     start_position = 5
-    assert \
-        find_str_sequence_in_str(search_str, byte_string, start_position) == 12
+    assert find_str_sequence_in_str(search_str, byte_string, start_position) == 12
 
 
 def test_find_str_in_seq_returns_minus_one_when_str_not_found():
@@ -91,7 +96,7 @@ def test_get_string_between_quotes():
     quote in bytes string
     """
     string_with_quotes = b'123"456"123'
-    assert get_string_between_quotes(string_with_quotes) == b'456'
+    assert get_string_between_quotes(string_with_quotes) == b"456"
 
 
 def test_get_string_between_quotes_with_more_the_two_quotes():
@@ -107,14 +112,14 @@ def test_in_bytes_converts_string_to_bytes():
     """
     test in_bytes method returns a bytes string when normal string is given
     """
-    assert isinstance(in_bytes('normal_string'), bytes)
+    assert isinstance(in_bytes("normal_string"), bytes)
 
 
 def test_in_bytes_returns_in_bytes_string():
     """
     test in_bytes method returns a bytes string when bytes string is given
     """
-    bytes_input = b'bytes string'
+    bytes_input = b"bytes string"
     assert in_bytes(bytes_input) == bytes_input
 
 
@@ -136,4 +141,4 @@ def test_get_error_content_from_json_exception_with_wrong_exception():
     no JSONDecodeError is provided
     """
     with pytest.raises(TypeError):
-        get_error_content_from_json_exception(ValueError('text'))
+        get_error_content_from_json_exception(ValueError("text"))

@@ -1,6 +1,7 @@
 """
 Module to define TextConvertor class for the get_data module
 """
+
 from ..settings.dataclass import GetDataResponse
 from .abstract_convertor import AbstractConvertor, AllConvertors
 
@@ -11,13 +12,12 @@ class TextConvertor(AbstractConvertor):
     tuple
     """
 
-    convertor_name = 'TEXT'
+    convertor_name = "TEXT"
 
     @classmethod
     def _result_with_data_field(
         cls, result: GetDataResponse, _=None
     ) -> GetDataResponse:
-
         """
         Extracts the text from the response and adds it to the results data
         field.
@@ -32,8 +32,12 @@ class TextConvertor(AbstractConvertor):
         response = result.response
         text = response.text
         return GetDataResponse(
-            response=response, is_valid=True, error_msg=[], data=text,
-            io_time=result.io_time)
+            response=response,
+            is_valid=True,
+            error_msg=[],
+            data=text,
+            io_time=result.io_time,
+        )
 
 
 AllConvertors.register_convertor(TextConvertor)

@@ -8,6 +8,7 @@ As API's can return response data objects in XML, HTML, csv, JSON etc.
 the implementation of this abstract convertor class takes care of converting
 the response data into the required data object (usually a dict)
 """
+
 from abc import ABCMeta, abstractmethod
 
 from ..get_data import GetData
@@ -16,7 +17,7 @@ from ..settings.enumerator import GetDataExceptions
 
 
 class AbstractConvertor(metaclass=ABCMeta):
-    """ Abstract Convertor class
+    """Abstract Convertor class
 
     implementations of the AbstractConvertor must implement
 
@@ -34,12 +35,13 @@ class AbstractConvertor(metaclass=ABCMeta):
     by default this validation requires the convertor_params to be None. When
     convertor_params are required override this method with specific validation
     """
+
     convertor_name: str
 
     @classmethod
     def get_data(cls, query_params: dict) -> GetDataResponse:
-        """ public method to used to retrieve GetDataResponse object """
-        convertor_params = query_params.pop('convertor_params', None)
+        """public method to used to retrieve GetDataResponse object"""
+        convertor_params = query_params.pop("convertor_params", None)
         cls._validate_convertor_params(convertor_params)
         result = GetData.result(query_params)
         if not result.is_valid:
@@ -49,12 +51,13 @@ class AbstractConvertor(metaclass=ABCMeta):
     @classmethod
     @abstractmethod
     def _result_with_data_field(
-        cls, result: GetDataResponse, convertor_params: dict) -> GetDataResponse:
-        """ private method to do the actual data coversion """
+        cls, result: GetDataResponse, convertor_params: dict
+    ) -> GetDataResponse:
+        """private method to do the actual data coversion"""
 
     @staticmethod
     def _validate_convertor_params(convertor_params) -> None:
-        """ private method to validate convertor_params argumemt
+        """private method to validate convertor_params argumemt
 
         by default this format params method checks that no params are
         provided. When actual validation is needed override this method
@@ -74,8 +77,7 @@ class AbstractConvertor(metaclass=ABCMeta):
         raise ValueError(GetDataExceptions.INVALID_RESPONSE_CONVERTOR_PARAMS)
 
 
-class AllConvertors():
-
+class AllConvertors:
     names: list[str] = []
 
     @classmethod

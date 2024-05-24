@@ -1,6 +1,7 @@
 """
 test methods for get_data module enumerators
 """
+
 from imports import BaseEnumerator, RestMethod
 
 
@@ -44,4 +45,4 @@ def test_keys_rest_method_enumerator():
     test that ResponseFormat keys are of type XML, JSON, CSV or HTML
     """
     for key in RestMethod.keys():
-        assert key in ['GET', 'POST']
+        assert key in ["GET", "POST"]

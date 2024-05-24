@@ -8,19 +8,24 @@ methods:
     - requests_retry_session
     - make_request_with_method
 """
+
 import time
 from typing import Optional
 
 import requests
 import unidecode
 from requests.adapters import HTTPAdapter
-from requests.exceptions import ChunkedEncodingError, ConnectionError, \
-    ReadTimeout, RetryError
-from requests.packages.urllib3.util.retry import Retry # type: ignore
+from requests.exceptions import (
+    ChunkedEncodingError,
+    ConnectionError,
+    ReadTimeout,
+    RetryError,
+)
+from requests.packages.urllib3.util.retry import Retry  # type: ignore
 
 
 def remove_none_values(input_dict: dict) -> dict:
-    """ method to remove none values from input_dict """
+    """method to remove none values from input_dict"""
     return {k: v for k, v in input_dict.items() if v is not None}
 
 
@@ -36,19 +41,18 @@ def convert_params_to_url_ext(params: Optional[dict]) -> str:
         str: url extension in form of '?param1=a&param2=b...'
     """
     if not params:
-        return ''
+        return ""
 
-    url_ext = '?'
+    url_ext = "?"
     for param, value in params.items():
-        if not url_ext == '?':
-            url_ext += '&'
-        url_ext += param + '=' + str(value)
+        if not url_ext == "?":
+            url_ext += "&"
+        url_ext += param + "=" + str(value)
 
     return url_ext
 
 
-def retry_after_connection_error(
-        retries=5, waittime=3, return_value_on_fail=None):
+def retry_after_connection_error(retries=5, waittime=3, return_value_on_fail=None):
     """Decorator method to retry requesy in case of Connection error
 
     Args:
@@ -58,6 +62,7 @@ def retry_after_connection_error(
         waittime (int, optional):
             Waittime in seconds between two retries. Defaults to 30 seconds.
     """
+
     def decorator(func):
         def wrapper(*args, **kwargs):
             """
@@ -66,18 +71,18 @@ def retry_after_connection_error(
             attempts = 0
             while attempts < retries:
                 try:
-                    return func(*args, ** kwargs)
-                except (ConnectionError, ChunkedEncodingError,
-                        ReadTimeout, RetryError):
+                    return func(*args, **kwargs)
+                except (ConnectionError, ChunkedEncodingError, ReadTimeout, RetryError):
                     attempts += 1
                     time.sleep(waittime * attempts)
             return return_value_on_fail
+
         return wrapper
+
     return decorator
 
 
-def requests_retry_session(
-        retries, backoff_factor, status_forcelist, session=None):
+def requests_retry_session(retries, backoff_factor, status_forcelist, session=None):
     """method to setup  a requests session
 
     Args:
@@ -98,29 +103,37 @@ def requests_retry_session(
         status_forcelist=status_forcelist,
     )
     adapter = HTTPAdapter(max_retries=retry)
-    session.mount('http://', adapter)
-    session.mount('https://', adapter)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
     return session
 
 
 def make_request_with_method(
-        url, method, headers, retries=3, backoff_factor=1, timeout=60,
-        status_forcelist=(500, 502, 504), data=None, params=None):
-
+    url,
+    method,
+    headers,
+    retries=3,
+    backoff_factor=1,
+    timeout=60,
+    status_forcelist=(500, 502, 504),
+    data=None,
+    params=None,
+):
     query_p = {
-        'url': url,
-        'method': method,
-        'headers': headers,
-        'timeout': timeout,
-        'data': data,
-        'params': params
+        "url": url,
+        "method": method,
+        "headers": headers,
+        "timeout": timeout,
+        "data": data,
+        "params": params,
     }
     request_params = {k: v for k, v in query_p.items() if v is not None}
 
     response = requests_retry_session(
         retries=retries,
         backoff_factor=backoff_factor,
-        status_forcelist=status_forcelist).request(**request_params)
+        status_forcelist=status_forcelist,
+    ).request(**request_params)
 
     return response
 
@@ -129,6 +142,6 @@ def normalize_string(accented_string):
     """
     remove special characters form string and make lower case
     """
-    unaccented_string = accented_string.replace('"', '')
+    unaccented_string = accented_string.replace('"', "")
     unidecoded_string = unidecode.unidecode(unaccented_string)
     return unidecoded_string.strip()

@@ -7,6 +7,7 @@ helper methods:
     - get_json_between_quotes
     - get_html_from_response
 """
+
 from json.decoder import JSONDecodeError
 from typing import Union
 
@@ -14,9 +15,9 @@ from requests.models import Response
 
 
 def in_bytes(input_string: Union[bytes, str]) -> bytes:
-    """ ensures that input bytes or string is returned in bytes """
+    """ensures that input bytes or string is returned in bytes"""
     if isinstance(input_string, str):
-        return bytes(input_string, encoding='UTF-8')
+        return bytes(input_string, encoding="UTF-8")
 
     return input_string
 
@@ -35,20 +36,19 @@ def replace_strings(input_string: bytes, convertor_params: dict) -> bytes:
     Returns:
         (str): json string with replacements
     """
-    replace_dict = convertor_params.get('replace', None)
+    replace_dict = convertor_params.get("replace", None)
     if not replace_dict:
         return input_string
     new_string = input_string
     for str_to_replace, replacement in replace_dict.items():
-        new_string = new_string.replace(
-            in_bytes(str_to_replace), in_bytes(replacement)
-        )
+        new_string = new_string.replace(in_bytes(str_to_replace), in_bytes(replacement))
 
     return new_string
 
 
 def find_str_sequence_in_str(
-        search_str: str, byte_string: bytes, start_position=None) -> int:
+    search_str: str, byte_string: bytes, start_position=None
+) -> int:
     """
     finds the starting index of a string in a bytestring
     """
@@ -71,14 +71,15 @@ def get_string_between_quotes(byte_string_containing_json: bytes) -> bytes:
 
 
 def get_html_from_response(response: Response) -> bytes:
-    """ retrieves encoded html from reponse object """
+    """retrieves encoded html from reponse object"""
     html = response.text
     return html.encode()
 
 
 def get_error_content_from_json_exception(
-        error: JSONDecodeError, content_size: int = 80) -> str:
-    """ Return part of the string that caused the JSONDecode error
+    error: JSONDecodeError, content_size: int = 80
+) -> str:
+    """Return part of the string that caused the JSONDecode error
 
     Args:
         error (JSONDecodeError): the exception
@@ -88,6 +89,6 @@ def get_error_content_from_json_exception(
         str: part of string that caused the exception
     """
     if not isinstance(error, JSONDecodeError):
-        raise TypeError('exception must be of type JSONDecodeError')
+        raise TypeError("exception must be of type JSONDecodeError")
 
-    return error.doc[(error.pos-content_size):(error.pos+content_size)]
+    return error.doc[(error.pos - content_size) : (error.pos + content_size)]
