@@ -9,7 +9,10 @@ from data.csv_test_data import INVALID_CSV, VALID_CSV
 from data.json_from_html_example import json_byte_example
 from data.test_json_from_html_data import HTML_DATA
 from data.test_xml_data import INVALID_XML, VALID_XML
+from errors import ErrorCode
 from imports import GetDataResponse
+
+TEST_ERROR_CODE = ErrorCode("TEST_CODE", "test")
 
 
 class ResponseMock:
@@ -50,7 +53,7 @@ DEFAULT_GET_DATA_RESPONSE = GetDataResponse(
 INVALID_GET_DATA_RESPONSE = GetDataResponse(
     response=ResponseMock(),
     is_valid=False,
-    error_msg=["errorcode"],
+    error_msg=[TEST_ERROR_CODE],
     data=None,
     io_time=0,
 )
