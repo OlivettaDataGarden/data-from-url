@@ -43,6 +43,16 @@ class GetDataErrors(FunctionalErrorsBaseClass):
         description="Response with unexpected statuscode 201",
     )
 
+    INVALID_STATUS_CODE_401 = ErrorCode(
+        code="GD_STATUSCODE_00401",
+        description="Response with unexpected statuscode 401",
+    )
+
+    INVALID_STATUS_CODE_402 = ErrorCode(
+        code="GD_STATUSCODE_00402",
+        description="Response with unexpected statuscode 402",
+    )
+
     INVALID_STATUS_CODE_403 = ErrorCode(
         code="GD_STATUSCODE_00403",
         description="Response with unexpected statuscode 403",

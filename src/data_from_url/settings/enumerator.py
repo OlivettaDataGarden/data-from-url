@@ -68,6 +68,8 @@ def status_code_errors(status_code: int) -> ErrorCode:
     return {
         200: ListErrors.INVALID_STATUS_CODE_200,
         201: ListErrors.INVALID_STATUS_CODE_201,
+        401: ListErrors.INVALID_STATUS_CODE_401,
+        402: ListErrors.INVALID_STATUS_CODE_402,
         403: ListErrors.INVALID_STATUS_CODE_403,
         404: ListErrors.INVALID_STATUS_CODE_404,
         500: ListErrors.INVALID_STATUS_CODE_500,
