@@ -82,17 +82,28 @@ def retry_after_connection_error(retries=5, waittime=3, return_value_on_fail=Non
     return decorator
 
 
-def requests_retry_session(retries, backoff_factor, status_forcelist, session=None):
-    """method to setup  a requests session
+def requests_retry_session(
+    retries: int,
+    backoff_factor: float,
+    status_forcelist: Optional[tuple[int, ...]] = (500, 502, 504),
+    session: Optional[requests.Session] = None,
+) -> requests.Session:
+    """
+    Set up a requests session with retry logic.
 
     Args:
-        retries (int): Nr of retries.
-        backoff_factor (float): Slow down on retry.
-        status_forcelist (tuple, optional): Defaults to (500, 502, 504).
-        session ([type], optional): Session to be used, Defaults to None.
+        retries (int):
+            Number of retry attempts.
+        backoff_factor (float):
+            A factor to apply to the retry interval.
+        status_forcelist (Tuple[int, ...], optional):
+            A tuple of HTTP status codes thatshould trigger a retry.
+            Defaults to (500, 502, 504).
+        session (requests.Session, optional):
+            An existing session to use. If not provided, a new session will be creat
 
     Returns:
-        requests.Session
+        requests.Session: A configured requests session with retry logic.
     """
     session = session or requests.Session()
     retry = Retry(
