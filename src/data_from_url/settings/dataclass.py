@@ -1,9 +1,10 @@
 """
 Module to define dataclasses for get_data module
 """
-
+import json
 from typing import Any, List, Optional, Union
 
+from errors import ErrorCode
 from pydantic import BaseModel, field_validator
 
 from .enumerator import GetDataExceptions, RestMethod
@@ -13,9 +14,20 @@ from .settings import ALLOWED_EXPECTED_STATUS_CODES, DEFAULT_HEADER
 class GetDataResponse(BaseModel):
     response: Any
     is_valid: Optional[bool]
-    error_msg: Any
-    data: Any
+    error_msg: list[ErrorCode]
+    data: Union[dict, str, list[dict], None]
     io_time: float = 0
+    
+    def export_data_to_json(self, filename: str):
+        # Extract the data field
+        if not self.is_valid:
+            raise ValueError("GetData response is not valid and holds no data")
+        
+        data = self.data
+        # Write the data field to a JSON file
+        with open(filename, 'w') as json_file:
+            json.dump(data, json_file, indent=4)
+
 
 
 class QueryParams(BaseModel):
