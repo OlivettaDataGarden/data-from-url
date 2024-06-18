@@ -9,8 +9,12 @@ from data.test_data import (
     JSON_FROM_HTML_IN_BYTES,
     VALID_HTML_GET_DATA_RESPONSE,
 )
-from errors.error import ListErrors
-from imports import GetDataResponse, JSONFromHTMLConvertor, json_from_html_convertor
+from imports import (
+    GetDataResponse,
+    JSONFromHTMLConvertor,
+    ListErrors,
+    json_from_html_convertor,
+)
 
 JSON_FROM_HTML_PATCH_PATH = (
     "data_from_url.convertors.json_from_html_convertor.JSONFromHTMLConvertor"

@@ -2,11 +2,10 @@
 Module to define Errors for the data-from-url module
 """
 
-from errors import ErrorCode, ListErrors
-from errors.base import FunctionalErrorsBaseClass
+from errors import ErrorCode, ErrorListByMixin
 
 
-class GetDataErrors(FunctionalErrorsBaseClass):
+class GetDataErrors():
     """Class to define enumerator with functional errors for GetData module."""
 
     CONNECTIVITY_ERROR = ErrorCode(
@@ -81,4 +80,5 @@ class GetDataErrors(FunctionalErrorsBaseClass):
     )
 
 
-ListErrors.register_errors(GetDataErrors)
+class LocListErrors(ErrorListByMixin, GetDataErrors):
+    pass

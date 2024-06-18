@@ -5,9 +5,9 @@ Module to define JSONConvertor class for the get_data module
 from xml.parsers.expat import ExpatError
 
 import xmltodict
-from errors.error import ListErrors
 
 from ..settings.dataclass import GetDataResponse
+from ..settings.errors import LocListErrors as ListErrors
 from .abstract_convertor import AbstractConvertor, AllConvertors
 
 

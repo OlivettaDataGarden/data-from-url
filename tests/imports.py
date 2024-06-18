@@ -34,4 +34,5 @@ from data_from_url.settings.enumerator import (
     GetDataExceptions,
     RestMethod,
 )
+from data_from_url.settings.errors import LocListErrors as ListErrors
 from data_from_url.settings.get_data_params import GetDataParams

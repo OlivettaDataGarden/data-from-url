@@ -8,9 +8,10 @@ enumerators:
 from enum import Enum
 from typing import List
 
-from .errors import ErrorCode, ListErrors
-from .exceptions import InvalidConvertorRequested
+from errors import ErrorCode
 
+from .exceptions import InvalidConvertorRequested
+from ..settings.errors import LocListErrors as ListErrors
 
 class BaseEnumerator(Enum):
     """

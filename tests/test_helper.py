@@ -3,10 +3,10 @@ test methods for get_data module helper
 """
 
 import requests
-from errors.error import ListErrors
 from imports import (
     CONNECTIVITY_ERROR_RESPONSE,
     GetDataResponse,
+    ListErrors,
     convert_params_to_url_ext,
     helper,
     make_request_with_method,

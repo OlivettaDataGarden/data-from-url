@@ -4,10 +4,10 @@ Module to define JSONConvertor class for the get_data module
 
 from json.decoder import JSONDecodeError
 
-from errors.error import ListErrors
 from requests.exceptions import InvalidJSONError
 
 from ..settings.dataclass import GetDataResponse
+from ..settings.errors import LocListErrors as ListErrors
 from .abstract_convertor import AbstractConvertor, AllConvertors
 
 
