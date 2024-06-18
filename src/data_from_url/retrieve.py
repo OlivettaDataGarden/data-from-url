@@ -8,7 +8,7 @@ from typing import Union
 
 from .convertors.abstract_convertor import AbstractConvertor, AllConvertors
 from .settings import exceptions
-from .settings.dataclass import GetDataResponse
+from .settings.dataclass import GetDataResponse, QueryParams
 
 
 class DataFromAPIorURL:
@@ -35,8 +35,8 @@ class DataFromAPIorURL:
         'data': str(payload),               # payload in str format
         'params': params,                   # url params in dict format
         'expected_status_code': 200,        # status code in int format
-        'method': 'POST',                   # str defining method to be used
-        'convertor_params': CONV_PARAMS},   # dict with convertor parameters
+        'method': 'POST'},                  # str defining method to be used
+    'convertor_params': CONV_PARAMS,        # dict with convertor parameters
     'convertor': 'JSON'                     # str defining data type convertor
                                               to be used or custom Convertor
     }
@@ -75,7 +75,10 @@ class DataFromAPIorURL:
 
     @classmethod
     def data(
-        cls, query_params: dict, convertor: Union[str, AbstractConvertor]
+        cls,
+        query_params: QueryParams | dict,
+        convertor: Union[str, AbstractConvertor],
+        convertor_params: dict | None = None,
     ) -> GetDataResponse:
         """dispatch the data request to the required data convertor class"""
         convertor_class = None
@@ -89,7 +92,7 @@ class DataFromAPIorURL:
         if not convertor_class:
             raise exceptions.InvalidConvertorType(convertor)
 
-        return convertor_class.get_data(query_params)
+        return convertor_class.get_data(query_params, convertor_params)
 
     @classmethod
     def _get_convertor_class(cls, convertor: str) -> AbstractConvertor:
