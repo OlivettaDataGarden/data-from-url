@@ -10,8 +10,9 @@ from typing import List
 
 from errors import ErrorCode
 
-from .exceptions import InvalidConvertorRequested
 from ..settings.errors import LocListErrors as ListErrors
+from .exceptions import InvalidConvertorRequested
+
 
 class BaseEnumerator(Enum):
     """

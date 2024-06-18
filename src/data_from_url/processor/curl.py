@@ -1,9 +1,8 @@
 import json
 import shlex
-from urllib.parse import urlparse, ParseResult, urlunparse
+from urllib.parse import ParseResult, urlparse, urlunparse
 
 from data_from_url import QueryParams
-
 
 GRQL_PAYLOAD_KEYS = ["operationName", "variables", "query"]
 
@@ -38,7 +37,7 @@ class ConvertCurl:
     def data_for_url_params(self) -> dict | None:
         if not self._url:
             return None
-        
+
         return {
             "query_params": QueryParams(
                 url=self._url,
@@ -63,6 +62,7 @@ class ConvertCurl:
                 data_field = data_field.replace("\n", " \\n")
 
                 return json.loads(data_field)
+        return None
 
     def _get_url_params(self) -> dict[str, str]:
         if not self._url_parse_result or not self._url_parse_result.query:
@@ -90,6 +90,8 @@ class ConvertCurl:
                     return result
             except ValueError:
                 continue
+
+        return None
 
     def _get_header(self) -> dict[str, str]:
         header = {}
@@ -128,4 +130,6 @@ class ConvertCurl:
             if all([result.scheme, result.netloc]):
                 return urlparse(possible_url_str)
         except ValueError:
-            return None
+            pass
+
+        return None

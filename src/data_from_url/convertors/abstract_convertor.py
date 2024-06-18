@@ -49,7 +49,7 @@ class AbstractConvertor(metaclass=ABCMeta):
             (convertor_params or query_params.pop("convertor_params", None))
             if isinstance(query_params, dict)
             else convertor_params
-        )
+        ) or {}
 
         cls._validate_convertor_params(conv_params)
         result = GetData.result(query_params)

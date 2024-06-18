@@ -5,7 +5,6 @@ Module to define CSVConvertor class for the get_data module
 import csv
 from typing import Iterator
 
-
 from ..helper import normalize_string
 from ..settings.dataclass import GetDataResponse
 from ..settings.enumerator import GetDataExceptions

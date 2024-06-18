@@ -164,16 +164,17 @@ def test_is_graph_ql_payload_false():
         is False
     )
 
+
 def test_is_graph_ql_payload_false_no_dict():
     assert (
-        is_graph_ql_payload("operationName")     # type: ignore
+        is_graph_ql_payload("operationName")  # type: ignore
     ) is False
+
 
 def test_data_for_url_params():
     inst = ConvertCurl(AH)
-    
+
     data_for_url_params = inst.data_for_url_params()
     assert data_for_url_params
     assert data_for_url_params["convertor"] == "JSON"
     assert data_for_url_params["query_params"].url == inst._url
-

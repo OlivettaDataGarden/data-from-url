@@ -45,7 +45,6 @@ curl 'https://www.ah.nl/gql' \
 """
 
 
-
 AUDI = """
 curl 'https://dealer-graphql.apps.emea.vwapps.io/' \
   -H 'accept: */*' \

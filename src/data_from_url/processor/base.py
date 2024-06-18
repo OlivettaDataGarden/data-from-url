@@ -1,6 +1,8 @@
 from typing import Counter, Iterator, Optional, Union
-from ..settings.dataclass import GetDataResponse
+
 from pydantic import BaseModel, Field
+
+from ..settings.dataclass import GetDataResponse
 
 
 class DictsStats(BaseModel):
@@ -64,22 +66,23 @@ class DataResponseProcessor:
         A list with a DictStat for each list of dictionaries in the response.
         Returns None if GetDataResponse in not valid
         A DictStat contains the following fields
-            path: str 
+            path: str
                 - the path to the list of dicts in the response
                   nested paths divided by `.` for next keys and `[i]` for nested
                   list. i.e. field1.[1].field2 means take value in of field1 which
                   should be a list. Take the list entry of index 1 which should be
                   a dict and take the value for for field2
-            count: int 
+            count: int
                 - the number of records in the given list
-            fields: list[str] 
+            fields: list[str]
                 - the fields found in that record (for now only top level fields)
-            record_example: dict 
+            record_example: dict
                 - 1ste record in the list
 
 
 
     """
+
     def __init__(self, data_response: GetDataResponse):
         self._data_response = data_response
         self._lists_with_dict_stats: list[DictsStats] = []
@@ -89,15 +92,14 @@ class DataResponseProcessor:
         Returns true only if the data_response has a valid GetDataResponse object.
         """
         return self._data_response.is_valid is True
-        
-    def get_repsonse_content_stats(self)  -> Optional[list[DictsStats]]:
+
+    def get_repsonse_content_stats(self) -> Optional[list[DictsStats]]:
         if not self:
             return None
         self._find_lists_with_dicts_in_data()
         return sorted(self._lists_with_dict_stats, key=lambda x: x.count, reverse=True)
 
-    def _find_lists_with_dicts_in_data(
-            self, data=None, path="") -> Optional[list[DictsStats]]:
+    def _find_lists_with_dicts_in_data(self, data=None, path=""):
         if not self._data_response.is_valid:
             raise ValueError("Not a valid data repsonse")
 
@@ -139,7 +141,7 @@ class DataResponseProcessor:
         Will not return keys for dicts that are stored in lists with a dict value
 
         """
-        fields = set()
+        fields: set = set()
         fields.update(input_dict.keys())
         for key, value in input_dict.items():
             if isinstance(value, dict):
@@ -256,7 +258,7 @@ class DataResponseProcessor:
 
         # remove target key, value from dict so that remaining key value pairs can be
         # evaluted and checked if tehy can be used for selection purpose
-        target_dict.pop(after_key.split(".")[0] )
+        target_dict.pop(after_key.split(".")[0])
 
         for key in target_dict.keys():
             target_value = target_dict.get(key, None)

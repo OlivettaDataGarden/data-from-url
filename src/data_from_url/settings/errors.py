@@ -5,7 +5,7 @@ Module to define Errors for the data-from-url module
 from errors import ErrorCode, ErrorListByMixin
 
 
-class GetDataErrors():
+class GetDataErrors:
     """Class to define enumerator with functional errors for GetData module."""
 
     CONNECTIVITY_ERROR = ErrorCode(
