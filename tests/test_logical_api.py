@@ -7,8 +7,7 @@ from data.test_data import (
     DEFAULT_QUERY_PARAMS,
     INVALID_GET_DATA_RESPONSE,
 )
-from errors.error import ListErrors
-from imports import GetDataResponse, LogicalApi
+from imports import GetDataResponse, ListErrors, LogicalApi
 from requests.exceptions import ConnectionError
 
 

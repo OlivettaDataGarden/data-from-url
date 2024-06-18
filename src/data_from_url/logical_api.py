@@ -4,7 +4,6 @@ Module to provide the LogicalApi class for the get_data module
 
 from datetime import datetime
 
-from errors.error import ListErrors
 from requests.exceptions import InvalidSchema, MissingSchema
 
 from .helper import (
@@ -14,6 +13,7 @@ from .helper import (
 )
 from .settings.dataclass import GetDataResponse
 from .settings.enumerator import status_code_errors
+from .settings.errors import LocListErrors as ListErrors
 
 CONNECTIVITY_ERROR_RESPONSE = GetDataResponse(
     response=None,

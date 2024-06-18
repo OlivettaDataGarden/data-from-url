@@ -3,8 +3,7 @@ test methods for get_data converter module JSONConvertor
 """
 
 from data.test_data import DEFAULT_GET_DATA_RESPONSE, INVALID_JSON_GET_DATA_RESPONSE
-from errors.error import ListErrors
-from imports import JSONConvertor
+from imports import JSONConvertor, ListErrors
 
 
 def test_json_converter_class_exists():

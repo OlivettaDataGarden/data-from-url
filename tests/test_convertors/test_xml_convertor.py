@@ -3,8 +3,7 @@ test methods for get_data converter module TextConverter
 """
 
 from data.test_data import INVALID_XML_GET_DATA_RESPONSE, VALID_XML_GET_DATA_RESPONSE
-from errors.error import ListErrors
-from imports import XMLConvertor
+from imports import ListErrors, XMLConvertor
 
 
 def test_xml_convertor_class_exists():

@@ -7,10 +7,10 @@ import urllib
 from typing import Optional
 
 from errors.base import add_error_data
-from errors.error import ListErrors
 
 from ..settings.dataclass import GetDataResponse
 from ..settings.enumerator import GetDataExceptions
+from ..settings.errors import LocListErrors as ListErrors
 from ..settings.settings import CONVERTOR_PARAMS_JSON_FROM_HTTP
 from .abstract_convertor import AbstractConvertor, AllConvertors
 from .json_from_html_helper import (

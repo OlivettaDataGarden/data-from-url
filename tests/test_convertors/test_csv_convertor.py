@@ -8,8 +8,7 @@ from data.test_data import (
     CSV_GET_DATA_RESPONSE,
     INVALID_CSV_GET_DATA_RESPONSE,
 )
-from errors.error import ListErrors
-from imports import CSVConvertor
+from imports import CSVConvertor, ListErrors
 
 
 def test_csv_converter_class_exists():

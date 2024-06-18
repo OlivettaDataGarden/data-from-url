@@ -19,7 +19,7 @@ class GetData:
     """
 
     @classmethod
-    def result(cls, query_params: dict) -> GetDataResponse:
+    def result(cls, query_params: QueryParams | dict) -> GetDataResponse:
         """Method to retrieve
 
         Args:
@@ -35,9 +35,11 @@ class GetData:
         return LogicalApi.result(query_params)
 
     @staticmethod
-    def validate_query_params(query_params: dict) -> dict:
+    def validate_query_params(query_params: QueryParams | dict) -> dict:
         """
         validates if query params contains all required fields and only allowed
         values
         """
-        return QueryParams(**query_params).model_dump()
+        if not isinstance(query_params, QueryParams):
+            query_params = QueryParams(**query_params)
+        return query_params.model_dump()

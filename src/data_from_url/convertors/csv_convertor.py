@@ -5,11 +5,10 @@ Module to define CSVConvertor class for the get_data module
 import csv
 from typing import Iterator
 
-from errors.error import ListErrors
-
 from ..helper import normalize_string
 from ..settings.dataclass import GetDataResponse
 from ..settings.enumerator import GetDataExceptions
+from ..settings.errors import LocListErrors as ListErrors
 from .abstract_convertor import AbstractConvertor, AllConvertors
 
 

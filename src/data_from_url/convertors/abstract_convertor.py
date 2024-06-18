@@ -12,7 +12,7 @@ the response data into the required data object (usually a dict)
 from abc import ABCMeta, abstractmethod
 
 from ..get_data import GetData
-from ..settings.dataclass import GetDataResponse
+from ..settings.dataclass import GetDataResponse, QueryParams
 from ..settings.enumerator import GetDataExceptions
 
 
@@ -39,14 +39,23 @@ class AbstractConvertor(metaclass=ABCMeta):
     convertor_name: str
 
     @classmethod
-    def get_data(cls, query_params: dict) -> GetDataResponse:
+    def get_data(
+        cls, query_params: QueryParams | dict, convertor_params: dict | None = None
+    ) -> GetDataResponse:
         """public method to used to retrieve GetDataResponse object"""
-        convertor_params = query_params.pop("convertor_params", None)
-        cls._validate_convertor_params(convertor_params)
+        # for backwords compatibility as conv params used to be part of query_params
+
+        conv_params = (
+            (convertor_params or query_params.pop("convertor_params", None))
+            if isinstance(query_params, dict)
+            else convertor_params
+        ) or {}
+
+        cls._validate_convertor_params(conv_params)
         result = GetData.result(query_params)
         if not result.is_valid:
             return result
-        return cls._result_with_data_field(result, convertor_params)
+        return cls._result_with_data_field(result, conv_params)
 
     @classmethod
     @abstractmethod

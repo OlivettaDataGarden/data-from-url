@@ -1,6 +1,7 @@
 """
 Module to define dataclasses for get_data module
 """
+
 import json
 from typing import Any, List, Optional, Union
 
@@ -17,17 +18,16 @@ class GetDataResponse(BaseModel):
     error_msg: list[ErrorCode]
     data: Union[dict, str, list[dict], None]
     io_time: float = 0
-    
+
     def export_data_to_json(self, filename: str):
         # Extract the data field
         if not self.is_valid:
             raise ValueError("GetData response is not valid and holds no data")
-        
+
         data = self.data
         # Write the data field to a JSON file
-        with open(filename, 'w') as json_file:
+        with open(filename, "w") as json_file:
             json.dump(data, json_file, indent=4)
-
 
 
 class QueryParams(BaseModel):
@@ -39,7 +39,7 @@ class QueryParams(BaseModel):
     expected_status_code: List[int]
     # data (body) object can also be string in order to allow for complex
     # GraphQL queries to be provided as string
-    data: Optional[Union[dict, str]] = None
+    data: Optional[Union[dict, str, list[dict]]] = None
     params: Optional[dict] = None
     proxy: Optional[str] = None
     status_forcelist: set = {500, 502, 504}
@@ -51,6 +51,18 @@ class QueryParams(BaseModel):
         """check method argument has a valid value"""
         if value not in RestMethod.values():
             raise ValueError(GetDataExceptions.INVALID_METHOD.value)
+        return value
+
+    @field_validator("data")
+    def data_to_str(cls, value):
+        """convert data to str"""
+        if isinstance(value, (dict, list)):
+            value = json.dumps(value)
+        if not isinstance(value, str):
+            raise TypeError(
+                f"data attribute is of type `{type(value)}"
+                " but must be of type str, list or dict`"
+            )
         return value
 
     @field_validator("expected_status_code", mode="before")
@@ -74,3 +86,7 @@ class QueryParams(BaseModel):
             raise ValueError(f"Status codes {incorrect_status_codes} not allowed.")
 
         return status_codes
+
+
+class GetDataFromUrlInput(BaseModel):
+    pass

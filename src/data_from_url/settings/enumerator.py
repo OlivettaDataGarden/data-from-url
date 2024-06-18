@@ -8,7 +8,9 @@ enumerators:
 from enum import Enum
 from typing import List
 
-from .errors import ErrorCode, ListErrors
+from errors import ErrorCode
+
+from ..settings.errors import LocListErrors as ListErrors
 from .exceptions import InvalidConvertorRequested
 
 
